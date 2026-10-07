@@ -39,6 +39,11 @@
       "name": "Optimism Goerli Testnet",
       "network_type": "evm-l2"
     },
+    "5042": {
+      "name": "Arc",
+      "network_type": "evm",
+      "batch_contract" : "0x3024A39099D4FAE7c9eA8329FAfe05576AEd2c00"
+    },
     "8453": {
       "name": "Base Mainnet",
       "network_type": "evm-l2",
