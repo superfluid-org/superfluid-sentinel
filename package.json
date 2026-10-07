@@ -28,7 +28,7 @@
     "@decentral.ee/web3-helpers": "^0.5.3",
     "@slack/webhook": "^6.1.0",
     "@superfluid-finance/ethereum-contracts": "1.9.0",
-    "@superfluid-finance/metadata": "^1.4.1",
+    "@superfluid-finance/metadata": "^1.6.5",
     "async": "^3.2.4",
     "axios": "^1.4.0",
     "bip39": "^3.1.0",
