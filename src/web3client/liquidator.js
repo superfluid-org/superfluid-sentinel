@@ -142,7 +142,7 @@ class Liquidator {
 
       for (const flow of streams) {
         if (await this.isPossibleToClose(flow.superToken, flow.sender, flow.receiver, flow.pppmode)) {
-          liquidations.push({sender: flow.sender, receiver: flow.receiver, source: flow.source});
+          liquidations.push({superToken: flow.superToken, sender: flow.sender, receiver: flow.receiver, source: flow.source, pppmode: flow.pppmode});
         } else {
           this.app.logger.debug(`address ${flow.sender} is solvent at ${flow.superToken}`);
           await this.app.queues.addQueuedEstimation(flow.superToken, flow.sender, "Liquidation job");
@@ -158,11 +158,9 @@ class Liquidator {
 
       if (liquidations.length !== 0) {
         if (liquidations.length === 1) {
-          await this.singleTerminations([{
-            superToken: batch.superToken,
-            sender: liquidations[0].sender,
-            receiver: liquidations[0].receiver
-          }]);
+          // keep pppmode and source: singleTerminations re-checks with isPossibleToClose(..., pppmode), and without it
+          // a Patrician or Pleb job falls to the Pirate branch (needs insolvency) and is never sent; source picks CFA or GDA
+          await this.singleTerminations([liquidations[0]]);
         } else {
           this.app.logger.debug(`sending a partial batch work: load ${liquidations.length}`);
           await this.sendBatch(batch.superToken, liquidations);
